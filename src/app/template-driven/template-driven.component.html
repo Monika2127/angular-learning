@@ -1,0 +1,135 @@
+<!-- TEMPLATE-DRIVEN FORMS -->
+<!-- CREATED LONG FORM HAVING ALL THINGS -->
+<form #contactForm="ngForm" (ngSubmit)="submit(contactForm)" class="d-flex">
+  <fieldset>
+    <legend>Contact Form</legend>
+    
+    <label for="">First Name : </label>
+    <input ngModel type="text" name="firstName" class="form-control" required>
+
+    <label for="">Last Name : </label>
+    <input ngModel type="text" name="lastName" class="form-control" required>
+
+    <div ngModelGroup="personal" #personal="ngModelGroup">
+      <label for="">Email</label>
+      <input ngModel type="email" name="email" class="form-control" minlength="3" maxlength="7" required>
+
+      <label for="">Contact</label>
+      <input ngModel type="number" name="contact" class="form-control" maxlength="10">
+
+      <div class="alert alert-danger" *ngIf="personal.touched && !personal.valid">
+        not valid
+      </div>
+    </div>
+
+    <label for="">Date</label>
+    <input ngModel type="date" name="date" class="form-control">
+
+    <div class="checkbox">
+      <label for=""> 
+        <input ngModel type="checkbox" name="subscribe">Subscribe
+      </label>
+    </div>
+
+    <div *ngFor="let dess of dessertlist">
+      <label for="">
+        <input ngModel type="radio" name="dessert" [value]="dess.id"> {{ dess.name }}
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="">Select items</label>
+      <select multiple name="dessert" id="" class="form-control" ngModel>
+        <option value="" disabled>Select item</option>
+        <option *ngFor="let dess of dessertlist" [ngValue]="dess"> {{ dess.name }}</option>
+      </select>
+    </div>
+
+    <p>{{ contactForm.value | json }}</p>
+
+    <div class="alert alert-danger" *ngIf="contactForm.touched && !contactForm.valid">
+      please give proper valid data
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!contactForm.valid">Submit</button>
+
+  </fieldset>
+</form>
+
+
+<!-- FIRSTNAME LASTNAME TRYING -->
+<form>
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input ngModel name="firstName" id="firstName" type="text" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input required 
+        ngModel 
+        name="lastName" 
+        minlength="3"
+        maxlength="10"
+        #lName="ngModel" 
+        (change)="log(lName)" 
+        type="text" 
+        class="form-control"
+        id="lastName"
+      >
+
+    <div class="alert alert-danger" *ngIf="lName.touched && !lName.valid">
+      <div *ngIf="lName.errors?.['required']">Last Name is required</div>
+      <div *ngIf="lName.errors?.['minlength']">Min length should be 3</div>
+      <div *ngIf="lName.errors?.['maxlength']">MAx length should be 10</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <textarea id="comment" type="text" cols="30" rows="10" class="form-control"></textarea>
+  </div>
+
+  <button class="btn btn-primary">Submit</button>
+</form>
+
+<!-- COURSES AND CATEGORY FORM -->
+
+<form #courses="ngForm">
+  <div class="form-group">
+    <label>Course Name</label>
+    <input ngModel name="course"
+      type="text" 
+      class="form-control" 
+      minlength="5" 
+      required
+      #course="ngModel"
+    >
+    <div class="alert alert-danger" *ngIf="course.touched && !course.valid">
+      <div *ngIf="course.errors?.['required']">Name is required</div>
+      <div *ngIf="course.errors?.['minlength']">Name should be minimum of {{ course.errors?.['minlength'].requiredLength }} characters</div>
+    </div>
+  </div>
+
+  <div class="form-group"> 
+    <label>Category</label>
+    <select ngModel name="category" class="form-control" #category="ngModel" required>
+      <option value="" disabled required>Select items</option>
+      <option *ngFor="let categ of categories" [value]="categ.id">{{ categ.name }}</option>
+    </select>
+
+    <div class="alert alert-danger" *ngIf="category.touched && !category.valid">
+      Category is required
+    </div>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input ngModel name="hasGurantee" type="checkbox"> 30-day money back gurantee
+    </label>
+  </div>
+
+  <p>{{ courses.value | json }}</p>
+
+  <button class="btn btn-primary" [disabled]="!courses.valid">Create</button>
+</form>

@@ -1,0 +1,106 @@
+<!-- Reactive forms -->
+
+<form [formGroup]="myForm" (ngSubmit)="login()">
+    <div *ngIf="myForm?.errors" class="alert alert-danger">Username or password is invalid</div>
+    <div class="form-group">
+      <label for="username">User Name</label>
+      <input 
+          formControlName="username" 
+          id="username" 
+          type="text" 
+          class="form-control"
+      >
+
+      <!-- get method can access any form control object inside this group -->
+      <!-- myForm.get('username').touched
+          myForm.get('username').valid -->
+
+      <!-- <div *ngIf="myForm.get('username')?.touched && !myForm.get('username')?.valid" class="alert alert-danger">Username is required.</div> -->
+  
+      <!-- To get the properties without having a big name, we can define a get method in the component -->
+      <!-- <div *ngIf="userName?.touched && !userName?.valid" class="alert alert-danger">Username is required.</div> -->
+
+      <div *ngIf="userName?.touched && !userName?.valid" class="alert alert-danger">
+        <div *ngIf="userName?.errors?.['required']">Username is required.</div>
+        <div *ngIf="userName?.errors?.['hasSameName']">Username should be unique.</div>
+      </div>
+
+      <!-- To check the status for the interval till the validation comes -->
+
+      <div *ngIf="userName?.pending">Checking for uniqueness...</div>
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+          formControlName="password" 
+          id="password" 
+          type="text" 
+          class="form-control"
+      >
+      <div *ngIf="passWord?.touched && !passWord?.valid" class="alert alert-danger">
+        <div *ngIf="passWord?.errors?.['required']">Password is required.</div>
+        <div *ngIf="passWord?.errors?.['minlength']">Password should be of length {{ passWord?.errors?.['minlength'].requiredLength }}</div>
+        <!-- here hasSpace has the same name which we provide in the custom validation error object -->
+        <div *ngIf="passWord?.errors?.['hasSpace']">Password should not contain space.</div>
+      </div>
+    </div>
+  
+    <button class="btn btn-primary" type="submit" [disabled]="myForm.invalid">Sign up</button>
+</form>
+
+
+  <!-- NESTED FORM GROUP -->
+
+  <form [formGroup]="nestedForm" (ngSubmit)="login()">
+    <div *ngIf="nestedForm?.errors" class="alert alert-danger">Username or password is invalid</div>
+
+    <!-- It will take the username and password of its parent formgroup, so we have to define it like this -->
+    <div formGroupName="account">
+        <div class="form-group">
+            <label for="user">User Name</label>
+            <input 
+                formControlName="user" 
+                id="user" 
+                type="text" 
+                class="form-control"
+            >
+            <div *ngIf="user?.touched && !user?.valid" class="alert alert-danger">
+                <div *ngIf="user?.errors?.['required']">user is required.</div>
+                <div *ngIf="user?.errors?.['hasSameName']">user should be unique.</div>
+            </div>
+            <div *ngIf="user?.pending">Checking for uniqueness...</div>
+        </div>
+    
+        <div class="form-group">
+            <label for="pwd">Password</label>
+            <input
+                formControlName="pwd" 
+                id="pwd" 
+                type="text" 
+                class="form-control"
+            >
+            <div *ngIf="pwd?.touched && !pwd?.valid" class="alert alert-danger">
+                <div *ngIf="pwd?.errors?.['required']">pwd is required.</div>
+                <div *ngIf="pwd?.errors?.['minlength']">pwd should be of length {{ pwd?.errors?.['minlength'].requiredLength }}</div>
+                <div *ngIf="pwd?.errors?.['hasSpace']">pwd should not contain space.</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input 
+            formControlName="age" 
+            id="age" 
+            type="text" 
+            class="form-control"
+        >
+        <div *ngIf="age?.touched && !age?.valid" class="alert alert-danger">
+            <div *ngIf="age?.errors?.['required']">age is required.</div>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="nestedForm.invalid">Sign up</button>
+  </form>

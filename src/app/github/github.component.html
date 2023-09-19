@@ -1,0 +1,30 @@
+<h1>Followers page</h1>
+<br>
+
+<!-- <div *ngFor="let item of follow">
+    <img [src]="item.avatar" alt="hii">
+    <span>{{ item.name | uppercase }}</span>
+    <a [href]="item.url">
+        {{ item.url }}
+    </a>
+    <br>
+    <br>
+</div> -->
+
+
+<div *ngFor="let item of follow" class="media">
+    <img class="mr-3" [src]="item.avatar">
+    <div class="media-body">
+        <h5 class="mt-0">{{ item.name | uppercase }}</h5>
+        <!-- <a [routerLink]="['/followers', item.name, item.id]">
+            {{ item.url }}
+        </a> -->
+        <!-- use this [queryParams] to get the optional parameters -->
+        <a 
+            [routerLink]="['/followers', item.name, item.id]"
+            [queryParams]="{ page: 1, order: 'new' }"
+        >
+            {{ item.url }}
+        </a>
+    </div>
+</div>

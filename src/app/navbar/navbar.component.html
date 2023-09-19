@@ -1,0 +1,35 @@
+<!-- <nav class="nav nav-default">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Followers</a></li>
+        <li><a href="#">Posts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+<nav [style.backgroundColor]="bgColor" class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <!-- if we use href here, the entire link will be downloaded & the Angular app will be reinitialized and the page 
+        will flicker for sometime, that's why we should use routerLink -->
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active current">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active current" routerLink="/posts">Posts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active current" routerLink="/followers">Followers</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- for simple route, we can use routerLink directive, but if we use queryParamters, we should use routerLink property binding -->
