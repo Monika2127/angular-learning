@@ -1,0 +1,17 @@
+<div class="zippy">
+  <div class="zippy-heading" [class.expanded]="isExpanded" (click)="toggle()">
+    {{ title }}
+    <span class="bi float-end" [ngClass]="{
+        'bi-chevron-up': isExpanded,
+        'bi-chevron-down': !isExpanded
+      }"></span>
+  </div>
+  <!-- if we want to animate the element which is always on the view, we need to define custom states, use the property binding
+       to set the value of the animation, and then the trigger or state will determine what transition will run
+   -->
+  <div 
+    [@expandCollapse]="isExpanded ? 'expanded' : 'collapse'"
+    class="zippy-body" >
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { AuthService } from './services/auth.service';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { AdminComponent } from './admin/admin.component';
 import { OrderService } from './services/order.service';
 import { FakeBackendInterceptor } from './helpers/fake-backend';
 import { CommonModule } from '@angular/common';
+import { TodosComponent } from './todos/todos.component';
+import { ZippyComponent } from './zippy/zippy.component';
 
 const routes = [
   {
@@ -82,7 +85,9 @@ const routes = [
     HomeComponent,
     GithubProfileComponent,
     BlogArchivesComponent,
-    ArchivedComponent
+    ArchivedComponent,
+    TodosComponent,
+    ZippyComponent
   ],
   imports: [
     BrowserModule,
@@ -90,12 +95,14 @@ const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     //  forRoot() is to define root routes for the application
     RouterModule.forRoot(routes)
   ],
   providers: [
     UtilsService,
+    provideAnimations(),
     //  import the GlobalError handler class here, to tell the Angular that instead of using the default ErrorHandler, use this
     //  GlobalErrorHandler
     {
