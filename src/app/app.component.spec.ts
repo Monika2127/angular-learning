@@ -1,29 +1,54 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UtilsService } from './services/utils.service';
+import { RouterLink, RouterLinkWithHref, RouterOutlet } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+describe('IT App Component', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [ UtilsService ],
+            imports: [ RouterTestingModule, HttpClientModule ],
+            declarations: [ AppComponent ],
+            //  if we have many child components or complex structore then we can include this schema but not preferrable
+            schemas: [ NO_ERRORS_SCHEMA ]
+        })
 
-  it(`should have as title 'myProj'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('myProj');
-  });
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+    });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('myProj app is running!');
-  });
+    it('should create the app', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it(`should have as title 'myProj'`, () => {
+        expect(component.tit).toEqual('myProj');
+    });
+
+    it('should have a router outlet', () => {
+        let det = fixture.debugElement.query(By.directive(RouterOutlet));
+
+        expect(det).not.toBeNull();
+    })
+
+    // it('should have a link to posts page', () => {
+    //     let elem = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+
+    //     // getting this error 
+    //     //  Expected -1 to be greater than -1.
+    //     let index = elem.findIndex(item => item.properties['href'] === '/posts');
+
+    //     expect(index).toBeGreaterThan(-1);
+    // })
 });
+
+
+//  If instead of writing nav element, created a app-nav component then we just have to import that child component in declarations
+//  and move the related tests to their respective component

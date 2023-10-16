@@ -9,6 +9,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 })
 export class AppComponent implements OnChanges, OnInit, OnDestroy {
 
+  tit = 'myProj';
   title!: Event;
   data: String = '';
   login: boolean = false

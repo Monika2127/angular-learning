@@ -16,6 +16,7 @@ import { GlobalError } from './common/app-error-global';
 import { FakeBackendInterceptor } from './helpers/fake-backend';
 
 import { NewDirDirective } from './directives/new-dir.directive';
+import { HighlightDirective } from './integration-testing/highlight-directive/highlight.directive';
 import { NewPipePipe } from './pipes/new-pipe.pipe';
 
 import { AppComponent } from './app.component';
@@ -40,7 +41,7 @@ import { MaterialsComponent } from './materials/materials.component';
 import { MatCourseComponent } from './materials/mat-course/mat-course.component';
 
 
-const routes = [
+export const routes = [
   {
     path: '',
     component: HomeComponent
@@ -96,7 +97,8 @@ const routes = [
     TodosComponent,
     ZippyComponent,
     MaterialsComponent,
-    MatCourseComponent
+    MatCourseComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
